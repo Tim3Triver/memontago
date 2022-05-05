@@ -1,4 +1,4 @@
-# Timeago
+# memontago
 
 #### 介绍
 
@@ -14,15 +14,15 @@
 2. English
 
 #### 软件架构
-1. timeago.Parse() 
+1. memontago.Parse() 
 
-2. timeage.Config()
+2. memontago.Config()
 
 #### 安装教程
 后来再说
 
 #### 使用说明
 
-1. timeago.Parse(time) 
+1. memontago.Parse(time) 
 
-2. timeage.Config(Config{})
+2. memontago.Config(Config{})
