@@ -1,4 +1,3 @@
-module GoTime
+module memontago
 
 go 1.17
-
