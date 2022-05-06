@@ -1,10 +1,8 @@
 package memontago
 
-import "memontago/controller"
-
 //Parse
 func Parse(datetime interface{}, options ...string) (string, bool) {
-	controller.ParseTime(datetime)
+	ParseTime(datetime)
 	return "", false
 }
 func Equals(datetime1, datetime2 interface{}) (bool, error) {

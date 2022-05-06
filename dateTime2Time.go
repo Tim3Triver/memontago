@@ -1,7 +1,6 @@
-package utils
+package memontago
 
 import (
-	"memontago"
 	"time"
 )
 
@@ -28,13 +27,13 @@ func Datetime2Time(datetime interface{}) time.Time {
 // stringtime2time 字符串格式转time.Time
 func stringtime2time(date string) time.Time {
 	var input time.Time
-	if memontago.Configx.Location == "" {
+	if config.Location == "" {
 		parseTime, err := time.Parse("2006-01-02 15:04:05", date)
 		if err != nil {
 			input = parseTime
 		}
 	} else {
-		location, err := time.LoadLocation(memontago.Configx.Location)
+		location, err := time.LoadLocation(config.Location)
 		if err != nil {
 			panic("时区加载失败")
 		}

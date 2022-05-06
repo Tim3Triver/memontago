@@ -1,9 +1,7 @@
-package controller
+package memontago
 
 import (
 	"math"
-	"memontago"
-	"memontago/utils"
 	"time"
 )
 
@@ -11,7 +9,7 @@ var gobalOptions = []string{}
 
 func ParseTime(datatime interface{}, options ...string) string {
 	//转化
-	input := utils.Datetime2Time(datatime)
+	input := Datetime2Time(datatime)
 	//	添加options
 	gobalOptions = append(gobalOptions, options...)
 
@@ -50,7 +48,7 @@ func calculateTheResult(second int) (string, int) {
 }
 
 func optionIsEnabled(option string) bool {
-	for _, options := range memontago.GlobalOptions {
+	for _, options := range GlobalOptions {
 		if options == option {
 			return true
 		}
