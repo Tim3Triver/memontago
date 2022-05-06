@@ -1,7 +1,7 @@
 package memontago
 
 import (
-	"math"
+	"strconv"
 	"time"
 )
 
@@ -15,7 +15,10 @@ func ParseTime(datatime interface{}, options ...string) string {
 
 	//计算秒数
 	second := time.Now().Sub(input).Seconds()
-
+	if second < 0 {
+		gobalOptions = append(gobalOptions, "upcoming")
+		second = -second
+	}
 	//	统计结果 kind number
 	kindtime, number := calculateTheResult(int(second))
 	//	result
@@ -23,12 +26,29 @@ func ParseTime(datatime interface{}, options ...string) string {
 }
 
 func getWords(kindtime string, number int) string {
-	//lang : kindtime : single or plural
-	//	需要使用不同的语言  各种语言需要缓存下来,之后取的时候直接
+	switch config.Language {
+	case "ch":
+		if optionIsEnabled("upcoming") { // 未来的时间
+			return strconv.Itoa(number) + ChTrans[kindtime] + ChTrans["later"]
+		}
+		// 过去的时间
+		return strconv.Itoa(number) + ChTrans[kindtime] + ChTrans["ago"]
+
+	case "en":
+		// 数量为单数
+		if number == 1 {
+			kindtime = kindtime[:len(kindtime)-1]
+		}
+		if optionIsEnabled("upcoming") { // 未来的时间
+			return strconv.Itoa(number) + " " + EnTrans[kindtime] + " " + EnTrans["later"]
+		}
+		// 过去的时间
+		return strconv.Itoa(number) + " " + EnTrans[kindtime] + " " + EnTrans["ago"]
+	}
 	return ""
 }
 func calculateTheResult(second int) (string, int) {
-	minutes, hours, days, weeks, months, years := getTimeCalculations(float64(second))
+	minutes, hours, days, weeks, months, years := getTimeCalculations(second)
 	switch {
 	case second < 60:
 		return "seconds", second
@@ -38,7 +58,7 @@ func calculateTheResult(second int) (string, int) {
 		return "hours", hours
 	case days < 7:
 		return "days", days
-	case weeks < 5:
+	case days <= 30: // 三十天以内
 		return "weeks", weeks
 	case months < 12:
 		return "months", months
@@ -48,7 +68,7 @@ func calculateTheResult(second int) (string, int) {
 }
 
 func optionIsEnabled(option string) bool {
-	for _, options := range GlobalOptions {
+	for _, options := range gobalOptions {
 		if options == option {
 			return true
 		}
@@ -57,13 +77,13 @@ func optionIsEnabled(option string) bool {
 }
 
 // getTimeCalculations 根据秒数转化时间
-func getTimeCalculations(seconds float64) (int, int, int, int, int, int) {
-	minutes := math.Round(seconds / 60)
-	hours := math.Round(seconds / 3600)
-	days := math.Round(seconds / 86400)
-	weeks := math.Round(seconds / 604800)
-	months := math.Round(seconds / 2629440)
-	years := math.Round(seconds / 31553280)
+func getTimeCalculations(seconds int) (int, int, int, int, int, int) {
+	minutes := seconds / 60
+	hours := seconds / 3600
+	days := seconds / 86400
+	weeks := seconds / 604800
+	months := seconds / 2629440
+	years := seconds / 31553280
 
-	return int(minutes), int(hours), int(days), int(weeks), int(months), int(years)
+	return minutes, hours, days, weeks, months, years
 }
