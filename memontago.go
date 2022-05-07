@@ -2,7 +2,8 @@ package memontago
 
 //Parse 解析并判断给定的时间与当前的时间的关系
 func Parse(datetime interface{}, options ...string) string {
-	return ParseTime(datetime)
+
+	return ParseTime(datetime, options...)
 }
 
 //func Equals(datetime1, datetime2 interface{}) (bool, error) {

@@ -15,7 +15,17 @@ func ParseTime(datatime interface{}, options ...string) string {
 
 	//计算秒数
 	second := time.Now().Sub(input).Seconds()
+
+	// 添加 online， jusNow options
+	//if second > 0{
+	//	if second < 3 {
+	//		gobalOptions = append(gobalOptions, "online")
+	//	} else if second < 30 {
+	//		gobalOptions = append(gobalOptions, "justNow")
+	//	}
+	//}
 	if second < 0 {
+		// 未来的时间的标识符 upcoming
 		gobalOptions = append(gobalOptions, "upcoming")
 		second = -second
 	}
@@ -32,6 +42,12 @@ func getWords(kindtime string, number int) string {
 			return strconv.Itoa(number) + ChTrans[kindtime] + ChTrans["later"]
 		}
 		// 过去的时间
+		if optionIsEnabled("online") {
+			return ChTrans["online"]
+
+		} else if optionIsEnabled("justNow") {
+			return ChTrans["JustNow"]
+		}
 		return strconv.Itoa(number) + ChTrans[kindtime] + ChTrans["ago"]
 
 	case "en":
@@ -43,6 +59,12 @@ func getWords(kindtime string, number int) string {
 			return strconv.Itoa(number) + " " + EnTrans[kindtime] + " " + EnTrans["later"]
 		}
 		// 过去的时间
+		if optionIsEnabled("online") {
+			return EnTrans["online"]
+
+		} else if optionIsEnabled("justNow") {
+			return EnTrans["justNow"]
+		}
 		return strconv.Itoa(number) + " " + EnTrans[kindtime] + " " + EnTrans["ago"]
 	}
 	return ""

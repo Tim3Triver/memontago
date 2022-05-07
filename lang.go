@@ -69,6 +69,8 @@ func trans(lang string) {
 }
 func initChTrans() map[string]string {
 	return map[string]string{
+		"justNow": langs["ch"].(langCh).JustNow,
+		"online":  langs["ch"].(langCh).Online,
 		"ago":     langs["ch"].(langCh).Ago,
 		"later":   langs["ch"].(langCh).Later,
 		"seconds": langs["ch"].(langCh).Second,
@@ -82,6 +84,8 @@ func initChTrans() map[string]string {
 }
 func initEnTrans() map[string]string {
 	return map[string]string{
+		"justNow": langs["en"].(langEn).JustNow,
+		"online":  langs["en"].(langEn).Online,
 		"ago":     langs["en"].(langEn).Ago,
 		"later":   langs["en"].(langEn).Later,
 		"second":  langs["en"].(langEn).Second,
