@@ -5,13 +5,3 @@ func Parse(datetime interface{}, options ...string) string {
 
 	return ParseTime(datetime, options...)
 }
-
-//func Equals(datetime1, datetime2 interface{}) (bool, error) {
-//	return false, nil
-//}
-//func Before(datetime1, datetime2 interface{}) (bool, error) {
-//	return false, nil
-//}
-//func After(datetime1, datetime2 interface{}) (bool, error) {
-//	return false, nil
-//}
