@@ -42,7 +42,7 @@ type langCh struct {
 	Year    string
 }
 
-var langs = map[string]interface{}{} // 语言映射
+// trans 传入语言标识，将对应的json格式的语言文件的解析为结构体 并存入到langs 语言：结构体
 func trans(lang string) {
 	//	设置语言
 	//	根据lang找到文件中对应的json
@@ -67,6 +67,13 @@ func trans(lang string) {
 	}
 
 }
+
+// 语言映射
+var langs = map[string]interface{}{}
+
+var ChTrans map[string]string
+var EnTrans map[string]string
+
 func initChTrans() map[string]string {
 	return map[string]string{
 		"justNow": langs["ch"].(langCh).JustNow,
@@ -81,7 +88,7 @@ func initChTrans() map[string]string {
 		"months":  langs["ch"].(langCh).Month,
 		"years":   langs["ch"].(langCh).Year,
 	}
-}
+} // 在配置的时候调用
 func initEnTrans() map[string]string {
 	return map[string]string{
 		"justNow": langs["en"].(langEn).JustNow,
@@ -103,8 +110,4 @@ func initEnTrans() map[string]string {
 		"year":    langs["en"].(langEn).Year,
 		"years":   langs["en"].(langEn).Years,
 	}
-}
-
-var ChTrans map[string]string
-
-var EnTrans map[string]string
+} // 在默认初始化配置的时候调用

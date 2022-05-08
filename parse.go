@@ -7,25 +7,17 @@ import (
 
 var gobalOptions = []string{}
 
-func ParseTime(datatime interface{}, options ...string) string {
+func parseTime(datetime interface{}, options ...string) string {
 	//转化
-	input := Datetime2Time(datatime)
+	input := Datetime2Time(datetime)
 	//	添加options
 	gobalOptions = append(gobalOptions, options...)
 
 	//计算秒数
 	second := time.Now().Sub(input).Seconds()
-
-	// 添加 online， jusNow options
-	//if second > 0{
-	//	if second < 3 {
-	//		gobalOptions = append(gobalOptions, "online")
-	//	} else if second < 30 {
-	//		gobalOptions = append(gobalOptions, "justNow")
-	//	}
-	//}
+	//将来的时间
 	if second < 0 {
-		// 未来的时间的标识符 upcoming
+		// 将来的时间 打一个标识符 upcoming
 		gobalOptions = append(gobalOptions, "upcoming")
 		second = -second
 	}
@@ -42,11 +34,11 @@ func getWords(kindtime string, number int) string {
 			return strconv.Itoa(number) + ChTrans[kindtime] + ChTrans["later"]
 		}
 		// 过去的时间
-		if optionIsEnabled("online") {
+		if kindtime == "seconds" && number <= 30 && optionIsEnabled("online") {
 			return ChTrans["online"]
 
-		} else if optionIsEnabled("justNow") {
-			return ChTrans["JustNow"]
+		} else if kindtime == "seconds" && number > 30 && number <= 60 && optionIsEnabled("justNow") {
+			return ChTrans["justNow"]
 		}
 		return strconv.Itoa(number) + ChTrans[kindtime] + ChTrans["ago"]
 
@@ -59,10 +51,10 @@ func getWords(kindtime string, number int) string {
 			return strconv.Itoa(number) + " " + EnTrans[kindtime] + " " + EnTrans["later"]
 		}
 		// 过去的时间
-		if optionIsEnabled("online") {
+		if kindtime == "seconds" && number <= 30 && optionIsEnabled("online") {
 			return EnTrans["online"]
 
-		} else if optionIsEnabled("justNow") {
+		} else if kindtime == "seconds" && number > 30 && number <= 60 && optionIsEnabled("justNow") {
 			return EnTrans["justNow"]
 		}
 		return strconv.Itoa(number) + " " + EnTrans[kindtime] + " " + EnTrans["ago"]
