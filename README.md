@@ -6,17 +6,19 @@
 能够处理三种形式的时间：
 1. time.Time
 2. Unix时间戳（timestamp）
-3. 字符串格式的时间 2006-01-02 15:04:05
+3. 字符串格式的时间 2006-01-02 15:04:05 [+ 时区]
 
 能够支持两种语言：
 
 1. Chinese
 2. English
 
+额外支持增加，减少时间。
 #### 软件架构
-1. memontago.Parse() 
-
-2. memontago.Config()
+1. memontago.Config()
+2. memontago.Parse()
+3. memontago.Add()
+4. memontago.Sub()
 
 #### 安装教程
 后来再说
@@ -34,6 +36,8 @@ func parseTime(datetime interface{}, options ...string) string
 > 
 > 例如，datetime是当前时间的前一分钟，返回 1 分钟以前
 > >支持两个选项 online、justNow
+> >
+> > 如果加上选项，给定的时间是当前时间之前30秒内，会返回Online，给定的时间是当前时间之前60秒内并且大于30秒，会返回Just Now
 
 
 
