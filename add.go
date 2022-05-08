@@ -20,7 +20,7 @@ func Add(dateTime interface{}, number int, DurUnit string) time.Time {
 		return input.Add(durNumber * time.Hour * 24 * 7)
 	case "day":
 		return input.AddDate(0, 0, number)
-	case "month": // 一个月 默认按照 30 天计算
+	case "month": // 一个月 默认按照 31 天计算
 		return input.AddDate(0, number, 0)
 	case "year":
 		return input.AddDate(number, 0, 0)
