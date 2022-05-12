@@ -11,13 +11,11 @@ func TestParse(t *testing.T) {
 	a := Parse(time.Now().Add(-20*time.Second), "online")
 	fmt.Println(a)
 }
-func TestA(t *testing.T) {
-
-}
-
-//func A(){
-//
-//}
-func TestFormat(t *testing.T) {
-	fmt.Println(time.Now().Weekday())
+func TestCalender(t *testing.T) {
+	SetConfig(Config{Language: "ch"})
+	fmt.Println(Calender(time.Now().AddDate(0, 0, 2)))
+	fmt.Println(Calender(time.Now().AddDate(0, 0, -4)))
+	fmt.Println(Calender(time.Now().AddDate(0, 0, -1)))
+	fmt.Println(Calender(time.Now().AddDate(0, 2, 0)))
+	fmt.Println(Calender(time.Now().AddDate(0, 0, 0)))
 }

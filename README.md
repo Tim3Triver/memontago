@@ -2,8 +2,7 @@
 
 #### 介绍
 
-**该软件是go的一个time库**，可以实现对于时间的解析，判断给定的一个时间是当前时间的关系。
-能够处理三种形式的时间：
+**该软件是go的一个time库**，可以实现对于时间的解析，能够处理三种形式的时间：
 1. time.Time
 2. Unix时间戳（timestamp）
 3. 字符串格式的时间 2006-01-02 15:04:05 [+ 时区]
@@ -12,14 +11,20 @@
 
 1. Chinese
 2. English
+- 支持解析时间，判断给定的一个时间是当前时间的关系
 
-额外支持增加，减少时间。
+- 支持在给定时间上增加，减少duration
+
+- 支持time.Time转换为日历格式的时间
+
+- 支持time.Time的日期格式化
 #### 软件架构
-1. memontago.Config()
-2. memontago.Parse()
-3. memontago.Add()
-4. memontago.Sub()
-
+  1. memontago.Config() 
+  2. memontago.Parse()
+  3. memontago.Add()
+  4. memontago.Sub()
+  5. memontago.Format()
+  6. memontago.Calender()
 #### 安装教程
 后来再说
 
@@ -66,4 +71,12 @@ func Sub (datetime,number, DurUnit string) time.Time
 ```
 
 > datetime减少number个DurUnit之后的时间
-
+```go
+func Format(datetime interface{}, format string) string 
+```
+> 格式化给定时间为指定格式
+> 
+```go
+func Calender(datetime interface{}) string
+```
+> 给定一个日期，返回给定的日历日期
