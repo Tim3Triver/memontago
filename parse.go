@@ -7,7 +7,9 @@ import (
 
 var gobalOptions = []string{}
 
-func parseTime(datetime interface{}, options ...string) string {
+// Parse 解析时间，并输出与当前时间的关系
+// 如：1 second ago
+func Parse(datetime interface{}, options ...string) string {
 	//转化
 	input := Datetime2Time(datetime)
 	//	添加options
