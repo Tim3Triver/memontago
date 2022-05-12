@@ -26,8 +26,8 @@
   5. memontago.Format()
   6. memontago.Calender()
 #### 安装教程
-后来再说
-
+> go get github.com/Tim3Triver/memontago
+> 
 #### 使用说明
 
 ```go
