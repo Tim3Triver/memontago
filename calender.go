@@ -8,7 +8,7 @@ import (
 // Calender 给定一个日期，返回给定的日历日期
 func Calender(datetime interface{}) string {
 	//datetime 转 time.Time
-	inputTime := Datetime2Time(datetime)
+	inputTime := datetime2Time(datetime)
 	// 当天00:00:00的time
 	now, _ := time.Parse("2006-01-02", time.Now().Format("2006-01-02"))
 	//	second差

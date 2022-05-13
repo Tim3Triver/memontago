@@ -4,7 +4,7 @@ import "time"
 
 // Add 支持在给定时间上增加 number * DurUnit
 func Add(dateTime interface{}, number int, DurUnit string) time.Time {
-	input := Datetime2Time(dateTime)
+	input := datetime2Time(dateTime)
 	//如果number是0 直接返回转化后的时间
 	if number == 0 {
 		return input

@@ -35,7 +35,7 @@ func Config(Config{Language string, Location string})
 ```
 > 配置语言和时区
 ```go
-func parseTime(datetime interface{}, options ...string) string 
+func Parse(datetime interface{}, options ...string) string 
 ```
 > 解析时间：datetime与当前时间的关系
 > 
@@ -47,7 +47,7 @@ func parseTime(datetime interface{}, options ...string) string
 
 
 ```go
-func add(number int, DurUnit string) time.Time
+func Add(dateTime interface{}, number int, DurUnit string) time.Time 
 ```
 
 > datetime增加number个DurUnit之后的时间

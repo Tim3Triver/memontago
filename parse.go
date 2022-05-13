@@ -11,7 +11,7 @@ var gobalOptions = []string{}
 // 如：1 second ago
 func Parse(datetime interface{}, options ...string) string {
 	//转化
-	input := Datetime2Time(datetime)
+	input := datetime2Time(datetime)
 	//	添加options
 	gobalOptions = append(gobalOptions, options...)
 

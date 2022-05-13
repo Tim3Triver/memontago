@@ -19,7 +19,7 @@ var formatMap = map[string]string{
 
 // Format 格式化时间 format:"MMM Do YY"
 func Format(datetime interface{}, format string) string {
-	inputTime := Datetime2Time(datetime)
+	inputTime := datetime2Time(datetime)
 	//切割字符串
 	s := strings.Split(format, " ")
 	temp := ""

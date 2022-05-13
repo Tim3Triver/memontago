@@ -9,10 +9,10 @@ import (
 	"time"
 )
 
-// Datetime2Time 传入一个	接口类型的时间，返回time.Time类型
+// datetime2Time 传入一个	接口类型的时间，返回time.Time类型
 // 只接受 string 标准格式、 int time.Time  参数
 // 如果不符合格式返回nil
-func Datetime2Time(datetime interface{}) time.Time {
+func datetime2Time(datetime interface{}) time.Time {
 	// 返回一个time.Time
 	var input time.Time
 	//	转换
