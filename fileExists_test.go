@@ -9,5 +9,4 @@ func TestFileExists(t *testing.T) {
 	if err != nil {
 		t.Errorf("expected: %s, got: %v", "a", err)
 	}
-
 }
