@@ -53,9 +53,8 @@ func getWords(kindtime string, number int) string {
 			return strconv.Itoa(number) + " " + EnTrans[kindtime] + " " + EnTrans["later"]
 		}
 		// 过去的时间
-		if kindtime == "seconds" && number <= 30 && optionIsEnabled("online") {
+		if kindtime == "second" || kindtime == "seconds" && number <= 30 && optionIsEnabled("online") {
 			return EnTrans["online"]
-
 		} else if kindtime == "seconds" && number > 30 && number <= 60 && optionIsEnabled("justNow") {
 			return EnTrans["justNow"]
 		}

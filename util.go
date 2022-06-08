@@ -1,11 +1,7 @@
 package memontago
 
 import (
-	"encoding/json"
-	"errors"
-	"io/ioutil"
 	"log"
-	"os"
 	"time"
 )
 
@@ -50,48 +46,4 @@ func stringtime2time(date string) time.Time {
 		input = parseTime
 	}
 	return input
-}
-
-func fileExists(filePath string) (bool, error) {
-	//加载filePath文件属性
-	_, err := os.Stat(filePath)
-	if err == nil {
-		return true, nil
-	}
-	// 文件未找到
-	if errors.Is(err, os.ErrNotExist) {
-		return false, nil
-	}
-	// 其他错误
-	return false, err
-}
-
-// 解析json字典，为language字典
-func parseJsonIntoLang(filePath, lang string) interface{} {
-	// 读取文件内容
-	context := getContent(filePath)
-	switch lang {
-	case "ch":
-		var langch langCh
-		err := json.Unmarshal(context, &langch) // 反序列化json
-		if err != nil {
-			log.Fatalln(err)
-		}
-		return langch
-	case "en":
-		var langen langEn
-		err := json.Unmarshal(context, &langen)
-		if err != nil {
-			log.Fatalln(err)
-		}
-		return langen
-	}
-	return nil
-}
-func getContent(filePath string) []byte {
-	context, err := ioutil.ReadFile(filePath)
-	if err != nil {
-		log.Fatalln(err)
-	}
-	return context
 }

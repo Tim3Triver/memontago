@@ -13,10 +13,10 @@ func Calender(datetime interface{}) string {
 	now, _ := time.Parse("2006-01-02", time.Now().Format("2006-01-02"))
 	//	second差
 	diff := int(inputTime.Sub(now).Seconds())
-	if diff < 0 {
-		diff = diff / 86400
-		diff--
-	} else {
+	if diff < 0 { // 如果是昨天的时间的话，diff < 0
+		diff = diff / 86400 // diff == 0
+		diff--              // -1
+	} else { // >= 0
 		diff = diff / 86400
 	}
 	r := ""
@@ -33,9 +33,9 @@ func Calender(datetime interface{}) string {
 	}
 	weeks := weekday[fmt.Sprint(now.Weekday())]
 	switch {
-	case diff+weeks < 21 && diff+weeks > 13:
+	case diff+weeks < 21 && diff+weeks >= 14:
 		r = "下"
-	case diff+weeks < 14 && diff+weeks > 6:
+	case diff+weeks < 14 && diff+weeks >= 7:
 		r = "这"
 	case diff+weeks < 7 && diff+weeks >= 0:
 		r = "上"

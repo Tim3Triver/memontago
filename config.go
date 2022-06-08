@@ -13,7 +13,6 @@ var config = Config{
 
 // 初始化时默认加载英文格式
 func init() {
-	trans("en")
 	EnTrans = initEnTrans()
 }
 
@@ -25,10 +24,8 @@ func SetConfig(conf Config) {
 		conf.Language = config.Language
 	}
 	config = conf
-	//	当配置config时，首先看看该语言是否已经加载到langs中了没
-	if _, ok := langs[config.Language]; !ok {
-		trans(config.Language)
-		ChTrans = initChTrans()
+	if len(ChTrans) == 0 {
+		initChTrans()
 	}
 }
 
