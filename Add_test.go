@@ -14,9 +14,9 @@ func TestAdd(t *testing.T) {
 
 	durUnit := []string{"second", "minute", "hour", "week", "day", "month", "year"}
 	for i := 0; i < 7; i++ {
-		time1 := Add("2022-01-31 15:00:00", 1, durUnit[i])
+		time1, err := Add("2022-01-31 15:00:00", 1, durUnit[i])
 		//time2 := ("2022-05-07 15:04:00", 1, durUnit[i])
-		fmt.Println(durUnit[i], time1)
+		fmt.Println(durUnit[i], time1, err)
 		//fmt.Println(durUnit[i], time2)
 	}
 }

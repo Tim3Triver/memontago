@@ -9,9 +9,12 @@ var gobalOptions = []string{}
 
 // Parse 解析时间，并输出与当前时间的关系
 // 如：1 second ago
-func Parse(datetime interface{}, options ...string) string {
+func Parse(datetime interface{}, options ...string) (string, error) {
 	//转化
-	input := datetime2Time(datetime)
+	input, err := datetime2Time(datetime)
+	if err != nil {
+		return "", err
+	}
 	//	添加options
 	gobalOptions = append(gobalOptions, options...)
 
@@ -26,7 +29,7 @@ func Parse(datetime interface{}, options ...string) string {
 	//	统计结果 kind number
 	kindtime, number := calculateTheResult(int(second))
 	//	result
-	return getWords(kindtime, number)
+	return getWords(kindtime, number), nil
 }
 
 func getWords(kindtime string, number int) string {

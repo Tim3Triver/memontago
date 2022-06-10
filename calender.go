@@ -6,16 +6,19 @@ import (
 )
 
 // Calender 给定一个日期，返回给定的日历日期
-func Calender(datetime interface{}) string {
+func Calender(datetime interface{}) (string, error) {
 	//datetime 转 time.Time
-	inputTime := datetime2Time(datetime)
+	inputTime, err := datetime2Time(datetime)
+	if err != nil {
+		return "", err
+	}
 	// 当天00:00:00的time
 	now, _ := time.Parse("2006-01-02", time.Now().Format("2006-01-02"))
 	//	second差
 	diff := int(inputTime.Sub(now).Seconds())
 	if diff < 0 { // 如果是昨天的时间的话，diff < 0
-		diff = diff / 86400 // diff == 0
-		diff--              // -1
+		diff = diff / 86400 // diff == 0  -1
+		diff--              // -1 -2
 	} else { // >= 0
 		diff = diff / 86400
 	}
@@ -29,7 +32,7 @@ func Calender(datetime interface{}) string {
 		r = "昨天"
 	}
 	if r != "" {
-		return r + inputTime.Format("15:04")
+		return r + inputTime.Format("15:04"), nil
 	}
 	weeks := weekday[fmt.Sprint(now.Weekday())]
 	switch {
@@ -40,7 +43,7 @@ func Calender(datetime interface{}) string {
 	case diff+weeks < 7 && diff+weeks >= 0:
 		r = "上"
 	default:
-		return inputTime.Format("2006年01月02日 15:04")
+		return inputTime.Format("2006年01月02日 15:04"), nil
 	}
-	return r + ChTrans[fmt.Sprint(inputTime.Weekday())] + inputTime.Format("15:04")
+	return r + ChTrans[fmt.Sprint(inputTime.Weekday())] + inputTime.Format("15:04"), nil
 }

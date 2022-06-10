@@ -8,8 +8,9 @@ import (
 
 func TestParse(t *testing.T) {
 	SetConfig(Config{Language: "ch", Location: "Asia/Shanghai"})
-	a := Parse(time.Now().Add(-20*time.Second), "online")
-	fmt.Println(a)
+	a, err := Parse(time.Now().Add(-20*time.Second), "online")
+
+	fmt.Println(a, err)
 }
 
 //func TestCalender(t *testing.T) {
@@ -23,4 +24,5 @@ func TestParse(t *testing.T) {
 func TestCalender(t *testing.T) {
 	var a map[string]int
 	fmt.Println(len(a))
+
 }
