@@ -80,3 +80,5 @@ func Format(datetime interface{}, format string) string
 func Calender(datetime interface{}) string
 ```
 > 给定一个日期，返回给定的日历日期
+#### 设计详情
+http://t.csdn.cn/NmOy7
