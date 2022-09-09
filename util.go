@@ -2,7 +2,6 @@ package memontago
 
 import (
 	"fmt"
-	"log"
 	"time"
 )
 
@@ -18,7 +17,7 @@ func datetime2Time(datetime interface{}) (time.Time, error) {
 	case int:
 		input = time.Unix(int64(date), 0)
 	case string:
-		isNilInput, err := stringtime2time(date)
+		isNilInput, err := strTime2time(date)
 		if err != nil {
 			return time.Time{}, err
 		}
@@ -31,25 +30,25 @@ func datetime2Time(datetime interface{}) (time.Time, error) {
 	return input, nil
 }
 
-// stringtime2time 字符串格式转time.Time
-func stringtime2time(date string) (*time.Time, error) {
+// strTime2time 字符串格式转time.Time
+func strTime2time(date string) (*time.Time, error) {
 	var input time.Time
+	var err error
 	if config.Location == "" {
-		parseTime, err := time.Parse("2006-01-02 15:04:05", date)
+		input, err = time.Parse("2006-01-02 15:04:05", date)
 		if err != nil {
-			return nil, fmt.Errorf(err.Error())
+			return nil, err
 		}
-		input = parseTime
 	} else {
-		location, err := time.LoadLocation(config.Location)
+		var location *time.Location
+		location, err = time.LoadLocation(config.Location)
 		if err != nil {
-			return nil, fmt.Errorf("时区输入错误")
+			return nil, fmt.Errorf("时区错误")
 		}
-		parseTime, err := time.ParseInLocation("2006-01-02 15:04:05", date, location)
+		input, err = time.ParseInLocation("2006-01-02 15:04:05", date, location)
 		if err != nil {
-			log.Fatalln(err)
+			return nil, err
 		}
-		input = parseTime
 	}
 	return &input, nil
 }
