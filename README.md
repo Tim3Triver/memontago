@@ -36,5 +36,10 @@ type Config struct {
 第二步：func Parse(datetime interface{}) (string, error) {
 
 datetime：输入以上三种格式的时间，进行解析。
+## 扩展新的显示语言
+ 如果想加入新的语言可以在language目录下添加yaml格式配置文件，使用的时候在配置文件中指定相应的文件名（不带后缀：`.yaml`）作为Config中的Language的值
 
- 如果想加入新的语言可以在language目录下添加yaml格式的语言即可。   
+例如：
+1.添加配置项 
+![img.png](img.png)
+2.SetConfig(Config{ Language : "en" }) 
