@@ -7,76 +7,39 @@
 2. Unix时间戳（timestamp）
 3. 字符串格式的时间 2006-01-02 15:04:05 [+ 时区]
 
-能够支持两种语言：
-
+能够支持任意语言,可以插件式的自主添加语言，不用更改任何代码
+以支持的语言：
 1. Chinese
 2. English
-- 支持解析时间，判断给定的一个时间是当前时间的关系
+- 解析时间，判断给定的一个时间是当前时间的关系
 
-- 支持在给定时间上增加，减少duration
-
-- 支持time.Time转换为日历格式的时间
-
-- 支持time.Time的日期格式化
 #### 软件架构
-  1. memontago.Config() 
+  1. memontago.SetConfig() 
   2. memontago.Parse()
-  3. memontago.Add()
-  4. memontago.Sub()
-  5. memontago.Format()
-  6. memontago.Calender()
 #### 安装教程
-后来再说
+> go get github.com/Tim3Triver/memontago
 
 #### 使用说明
-
+ 第一步：配置语言，时区，是否需要特殊标识
 ```go
-func Config(Config{Language string, Location string})
+type Config struct {
+	Language string // 语言
+	Location string // 时区 只在解析字符串格式表示的时间时起作用
+	Special  bool   //是否支持特殊标志
+}
 ```
-> 配置语言和时区
-```go
-func parseTime(datetime interface{}, options ...string) string 
-```
-> 解析时间：datetime与当前时间的关系
+> 如果不配置，则默认英文，本地时区，不支持特殊标志
 > 
-> 例如，datetime是当前时间的前一分钟，返回 1 分钟以前
-> >支持两个选项 online、justNow
-> >
-> > 如果加上选项，给定的时间是当前时间之前30秒内，会返回Online，给定的时间是当前时间之前60秒内并且大于30秒，会返回Just Now
-
-
-
-```go
-func add(number int, DurUnit string) time.Time
-```
-
-> datetime增加number个DurUnit之后的时间
+> 如果使用标识，则小于等于5秒则以Online显示，大于5秒 小于等于30秒以JustNow显示，而不会显示解析出来的时间差
 >
-> DurUnit string 支持 单位：second/minute/day/week/month/year
->
-> 1 month = 31day
->
-> > 支持时间的进位
-> >
-> > 例如：
-> >
-> > 给定的时间为：19:30:30
-> >
-> > date：second =40 转换后的时间为 19:31:10
 
+第二步：func Parse(datetime interface{}) (string, error) {
 
+datetime：输入以上三种格式的时间，进行解析。
+## 扩展新的显示语言
+ 如果想加入新的语言可以在language目录下添加yaml格式配置文件，使用的时候在配置文件中指定相应的文件名（不带后缀：`.yaml`）作为Config中的Language的值
 
-```go 
-func Sub (datetime,number, DurUnit string) time.Time
-```
-
-> datetime减少number个DurUnit之后的时间
-```go
-func Format(datetime interface{}, format string) string 
-```
-> 格式化给定时间为指定格式
-> 
-```go
-func Calender(datetime interface{}) string
-```
-> 给定一个日期，返回给定的日历日期
+例如：
+1.添加配置项 
+![img.png](img.png)
+2.SetConfig(Config{ Language : "en" }) 

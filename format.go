@@ -1,7 +1,7 @@
 package memontago
 
 import (
-	"log"
+	"fmt"
 	"strings"
 )
 
@@ -18,26 +18,38 @@ var formatMap = map[string]string{
 }
 
 // Format 格式化时间 format:"MMM Do YY"
-func Format(datetime interface{}, format string) string {
-	inputTime := Datetime2Time(datetime)
+func Format(datetime interface{}, format string) (string, error) {
+	inputTime, err := datetime2Time(datetime)
+	if err != nil {
+		return "", err
+	}
+	//切割字符串
+	temp := ""
+	if format == "" {
+		temp += inputTime.Format("2006-01-02 15:04:05.000")
+	}
 	//切割字符串
 	s := strings.Split(format, " ")
-	temp := ""
 	//判断map中是否存在
 	for i := 0; i < len(s); i++ {
-		if _, ok := formatMap[s[i]]; ok {
-			if !ok {
-				log.Fatal("输入格式不对")
-				return ""
-			}
+		_, ok := formatMap[s[i]]
+		if formatMap[s[i]] != "" && !ok {
+			return "", fmt.Errorf("输入格式不对")
 		}
-		if formatMap[s[i]] == "01" {
-			temp += inputTime.Format(monthMap[formatMap[s[i]]]) + " "
-		} else if formatMap[s[i]] == "02" {
-			temp += inputTime.Format(dayMap[formatMap[s[i]]]) + " "
-		} else {
-			temp += inputTime.Format(formatMap[s[i]])
+		switch formatMap[s[i]] {
+		case "01": // 月
+			temp += inputTime.Format("1月") + " "
+		case "02": // 日
+			temp += inputTime.Format("2日") + " "
+		case "15": // 小时
+			temp += inputTime.Format("03")
+		case "04": // 分钟
+			temp += inputTime.Format(":04")
+		case "05": // 秒
+			temp += inputTime.Format(":05")
+		default: // 没匹配到
+			temp += inputTime.Format(formatMap[s[i]]) + " "
 		}
 	}
-	return temp
+	return temp, nil
 }
