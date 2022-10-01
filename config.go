@@ -14,7 +14,7 @@ var config = Config{
 
 // SetConfig 配置语言和时区
 // 时区仅在其他函数给定的时间参数为字符串格式的时间起作用
-func SetConfig(conf Config) {
+func SetConfig(conf Config) error {
 	//语言为空时，设置英语为默认语言
 	if conf.Language == "" {
 		conf.Language = "en"
@@ -24,5 +24,5 @@ func SetConfig(conf Config) {
 	}
 	config = conf
 	// 解析对应语言 到结构体中
-	UnMarshalToStruct(config.Language)
+	return UnMarshalToStruct(config.Language)
 }
