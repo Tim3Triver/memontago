@@ -13,7 +13,7 @@
 已经支持的语言：
 1. Chinese
 2. English
-- 解析时间，判断给定的一个时间是当前时间的关系
+
 
 #### 软件架构
   1. memontago.SetConfig() 
