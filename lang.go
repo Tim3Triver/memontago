@@ -30,13 +30,15 @@ type Language struct {
 }
 
 func UnMarshalToStruct(lang string) error {
-	data, err := ioutil.ReadFile("./language/" + lang + ".yaml")
+	// 在外部引用该依赖时，需要外部项目有language/xx.yaml目录，否则读取不到配置文件，可以将该依赖中的language复制到项目中使用
+	// 执行go build时需要执行命令所在的目录应该是language目录所在的目录
+	data, err := ioutil.ReadFile("language/" + lang + ".yaml")
 	if err != nil {
-		return fmt.Errorf("momentago/language/%s/.yaml is not exised, please check", lang)
+		return fmt.Errorf("language/%s.yaml is not exised, please check,err:%v", lang, err)
 	}
 	err = yaml.Unmarshal(data, &Lang)
 	if err != nil {
-		return fmt.Errorf("momentago/language/%s/.yaml is not yaml style, please check", lang)
+		return fmt.Errorf("language/%s.yaml is not yaml style, please check,err %v", lang, err)
 	}
 	return nil
 }

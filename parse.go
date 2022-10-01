@@ -7,12 +7,13 @@ import (
 
 // Parse 解析时间，并输出与当前时间的关系
 // 如：1 second ago
-func Parse(datetime interface{}) (string, error) {
+// 传入字符串类型的时间需要和format:2006-01-02 15:04:05相匹配
+func Parse(datetime interface{}, format string) (string, error) {
 	// 标记
 	status := "ago"
 
 	// 转化
-	input, err := datetime2Time(datetime)
+	input, err := datetime2Time(datetime, format)
 	if err != nil {
 		return "", err
 	}
